@@ -64,22 +64,19 @@ fun RegistrationScreen(context: Context, databaseHelper: UserDatabaseHelper) {
         if (firstName.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty()) {
             errMsg = "Please fill all required fields"
             return
-            //            return@Button;
         }
 
         if (password != confirmPassword) {
             errMsg = "Password & Confirm Password must be same"
             return
-            //            return@Button
         }
 
-//                if (firstName.isNotEmpty() && username.isNotEmpty() && password.isNotEmpty() && email.isNotEmpty() && password === confirmPassword) {
         val isExists = databaseHelper.getUserByUsername(username)
         if (isExists !== null) {
             errMsg = "User exists"
             return
-            //            return@Button
         }
+
         val user = User(
             id = null,
             username = username,
@@ -97,9 +94,6 @@ fun RegistrationScreen(context: Context, databaseHelper: UserDatabaseHelper) {
             )
         )
 
-//                } else {
-//                    errMsg = "Please fill all required fields"
-//                }
     }
 
     Column(
@@ -123,8 +117,7 @@ fun RegistrationScreen(context: Context, databaseHelper: UserDatabaseHelper) {
 
         Image(painterResource(id = R.drawable.register_graphic), contentDescription = "")
         Text(
-            style = MaterialTheme.typography.h3,
-            text = "Register"
+            style = MaterialTheme.typography.h3, text = "Register"
         )
         Spacer(modifier = Modifier.height(10.dp))
 
@@ -156,8 +149,7 @@ fun RegistrationScreen(context: Context, databaseHelper: UserDatabaseHelper) {
             keyboardActions = KeyboardActions(onNext = { fm.moveFocus(FocusDirection.Down) }),
         )
 
-        OutlinedTextField(
-            value = username,
+        OutlinedTextField(value = username,
             onValueChange = { username = it },
             label = { Text("Username*") },
             singleLine = true,
@@ -172,11 +164,9 @@ fun RegistrationScreen(context: Context, databaseHelper: UserDatabaseHelper) {
                 Icon(
                     imageVector = Icons.Default.Person, contentDescription = "Username"
                 )
-            }
-        )
+            })
 
-        OutlinedTextField(
-            value = email,
+        OutlinedTextField(value = email,
             onValueChange = { email = it },
             label = { Text("Email") },
             modifier = Modifier
@@ -190,11 +180,9 @@ fun RegistrationScreen(context: Context, databaseHelper: UserDatabaseHelper) {
                 Icon(
                     imageVector = Icons.Default.Email, contentDescription = "Email"
                 )
-            }
-        )
+            })
 
-        OutlinedTextField(
-            value = password,
+        OutlinedTextField(value = password,
             onValueChange = { password = it },
             label = { Text("Password") },
             singleLine = true,
@@ -219,11 +207,9 @@ fun RegistrationScreen(context: Context, databaseHelper: UserDatabaseHelper) {
 
                         )
                 }
-            }
-        )
+            })
 
-        OutlinedTextField(
-            value = confirmPassword,
+        OutlinedTextField(value = confirmPassword,
             onValueChange = { confirmPassword = it },
             label = { Text("Confirm Password") },
             singleLine = true,
@@ -250,8 +236,7 @@ fun RegistrationScreen(context: Context, databaseHelper: UserDatabaseHelper) {
 
                         )
                 }
-            }
-        )
+            })
 
 
         if (errMsg.isNotEmpty()) {
@@ -275,13 +260,11 @@ fun RegistrationScreen(context: Context, databaseHelper: UserDatabaseHelper) {
                 modifier = Modifier.padding(top = 14.dp), text = "Have an account?"
             )
             TextButton(onClick = {
-/*
-                        context.startActivity(
-                            Intent(
-                                context, LoginActivity::class.java
-                            )
-                        )
-*/
+                context.startActivity(
+                    Intent(
+                        context, LoginActivity::class.java
+                    )
+                )
             })
 
             {
@@ -290,134 +273,6 @@ fun RegistrationScreen(context: Context, databaseHelper: UserDatabaseHelper) {
             }
         }
     }
-
-    /* Column(
-         modifier = Modifier
-             .fillMaxSize()
-             .verticalScroll(rememberScrollState()),
-         horizontalAlignment = Alignment.CenterHorizontally,
-         verticalArrangement = Arrangement.Center
-     ) {
-
-         Image(painterResource(id = R.drawable.register_graphic), contentDescription = "")
-
-         Text(
-             fontSize = 36.sp,
-             fontWeight = FontWeight.ExtraBold,
-             fontFamily = FontFamily.Cursive,
-             text = "Register"
-         )
-
-         Spacer(modifier = Modifier.height(10.dp))
-
-         OutlinedTextField(
-             value = firstName,
-             onValueChange = { firstName = it },
-             label = { Text("First name*") },
-             modifier = Modifier
-                 .padding(10.dp)
-                 .width(280.dp)
-         )
-
-         OutlinedTextField(
-             value = lastName,
-             onValueChange = { lastName = it },
-             label = { Text("Last name") },
-             modifier = Modifier
-                 .padding(10.dp)
-                 .width(280.dp)
-         )
-
-         OutlinedTextField(
-             value = username,
-             onValueChange = { username = it },
-             label = { Text("Username*") },
-             modifier = Modifier
-                 .padding(10.dp)
-                 .width(280.dp)
-         )
-
-         OutlinedTextField(
-             value = email,
-             onValueChange = { email = it },
-             label = { Text("Email") },
-             modifier = Modifier
-                 .padding(10.dp)
-                 .width(280.dp)
-         )
-
-         OutlinedTextField(
-             value = password,
-             onValueChange = { password = it },
-             label = { Text("Password") },
-             visualTransformation = PasswordVisualTransformation(),
-             modifier = Modifier
-                 .padding(10.dp)
-                 .width(280.dp)
-         )
-
-
-         if (errMsg.isNotEmpty()) {
-             Text(
-                 text = errMsg,
-                 color = MaterialTheme.colors.error,
-                 modifier = Modifier.padding(vertical = 16.dp)
-             )
-         }
-
-         Button(
-             onClick = {
-                 if (firstName.isNotEmpty() && username.isNotEmpty() && password.isNotEmpty() && email.isNotEmpty()) {
-                     val isExists = databaseHelper.getUserByUsername(username)
-                     if (isExists !== null) {
-                         errMsg = "User exists"
-                         return@Button
-                     }
-                     val user = User(
-                         id = null,
-                         username = username,
-                         firstName = firstName,
-                         lastName = lastName,
-                         email = email,
-                         password = password
-                     )
-                     databaseHelper.insertUser(user)
-                     errMsg = "User registered successfully"
-                     // Start LoginActivity using the current context
-                     context.startActivity(
-                         Intent(
-                             context, LoginActivity::class.java
-                         )
-                     )
-
-                 } else {
-                     errMsg = "Please fill all fields"
-                 }
-             }, modifier = Modifier.padding(top = 16.dp)
-         ) {
-             Text(text = "Register")
-         }
-         Spacer(modifier = Modifier.width(10.dp))
-         Spacer(modifier = Modifier.height(10.dp))
-
-         Row() {
-             Text(
-                 modifier = Modifier.padding(top = 14.dp), text = "Have an account?"
-             )
-             TextButton(onClick = {
-                 context.startActivity(
-                     Intent(
-                         context, LoginActivity::class.java
-                     )
-                 )
-             })
-
-             {
-                 Spacer(modifier = Modifier.width(10.dp))
-                 Text(text = "Log in")
-             }
-         }
-     }*/
 }
 
 private fun startLoginActivity(context: Context) {
