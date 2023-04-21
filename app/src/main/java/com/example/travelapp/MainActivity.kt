@@ -33,7 +33,7 @@ fun TravelApp(context: Context) {
             .padding(15.dp)
             .verticalScroll(rememberScrollState()),
     ) {
-        PlaceCard<BaliActivity>(
+        PlaceCard(
             image = R.drawable.bali_cover,
             place = R.string.place_1,
             placeDesc = R.string.description,
@@ -41,7 +41,7 @@ fun TravelApp(context: Context) {
             context = context,
             Class=BaliActivity::class.java
         )
-        PlaceCard<ParisActivity>(
+        PlaceCard(
             image = R.drawable.paris_cover,
             place = R.string.place_2,
             placeDesc = R.string.description,
@@ -50,7 +50,7 @@ fun TravelApp(context: Context) {
             Class=ParisActivity::class.java
 
         )
-        PlaceCard<SingaporeActivity>(
+        PlaceCard(
             image = R.drawable.singapore_cover,
             place = R.string.place_3,
             placeDesc = R.string.description,
