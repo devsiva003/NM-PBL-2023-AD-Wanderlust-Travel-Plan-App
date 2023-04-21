@@ -175,15 +175,12 @@ fun LoginScreen(context: Context, databaseHelper: UserDatabaseHelper) {
             Text(text = "Login")
 
         }
+        Spacer(modifier = Modifier.height(10.dp))
 
-        Row {
-            TextButton(onClick = { handleRegisterClick() }) { Text(text = "Register") }
-            TextButton(onClick = {/*handleForgotPassword()*/ })
-
-            {
-                Spacer(modifier = Modifier.width(60.dp))
-                Text(text = "Forget password?")
-            }
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text("New to Wanderlust,")
+            Spacer(modifier = Modifier.width(10.dp))
+            TextButton(onClick = { handleRegisterClick() }) { Text(text = "Register Now") }
         }
     }
 }
@@ -194,128 +191,3 @@ private fun startMainPage(context: Context) {
     ContextCompat.startActivity(context, intent, null)
 }
 */
-
-/*
-@Composable
-private fun LoginScreenNew() {
-    var username by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var isPasswordVisible by remember { mutableStateOf(false) }
-    var error by remember { mutableStateOf("") }
-
-    val fm = LocalFocusManager.current
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(10.dp)
-            .background(Color.White)
-            .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-
-        Text(
-            text = "Welcome Back !",
-            style = MaterialTheme.typography.h2,
-        )
-        Text(
-            text = "Let's plan a new journey",
-            style = MaterialTheme.typography.subtitle1,
-            textAlign = TextAlign.Left
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-
-        Image(painterResource(id = R.drawable.trav), contentDescription = "")
-        Text(
-            text = "Login",
-            style = MaterialTheme.typography.h3
-        )
-        Spacer(modifier = Modifier.height(10.dp))
-
-        OutlinedTextField(
-            value = username,
-            onValueChange = { username = it },
-            label = { Text("Username") },
-            modifier = Modifier
-                .padding(10.dp)
-                .width(280.dp),
-            placeholder = { "Enter username here" },
-            singleLine = true,
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Email,
-                imeAction = ImeAction.Next
-            ),
-            keyboardActions = KeyboardActions(onNext = { fm.moveFocus(FocusDirection.Down) }),
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Person,
-                    contentDescription = "Username"
-                )
-            }
-        )
-
-        OutlinedTextField(
-            value = password,
-            onValueChange = { password = it },
-            label = { Text("Password") },
-            visualTransformation = if (!isPasswordVisible) PasswordVisualTransformation() else VisualTransformation.None,
-            modifier = Modifier
-                .padding(10.dp)
-                .width(280.dp),
-            placeholder = { "Enter password here" },
-            singleLine = true,
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Password,
-                imeAction = ImeAction.Next
-            ),
-            keyboardActions = KeyboardActions(onNext = { fm.moveFocus(FocusDirection.Down) }),
-            leadingIcon = {
-                Icon(
-                    imageVector = Icons.Default.Lock,
-                    contentDescription = "Password"
-                )
-            },
-            trailingIcon = {
-                IconButton(onClick = { isPasswordVisible = !isPasswordVisible }) {
-                    Icon(
-                        imageVector = if (!isPasswordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff,
-                        contentDescription = "Password",
-
-                        )
-                }
-            }
-
-        )
-
-        if (error.isNotEmpty()) {
-            Text(
-                text = error,
-                color = MaterialTheme.colors.error,
-                modifier = Modifier.padding(vertical = 16.dp)
-            )
-        }
-
-        Button(
-            onClick = { *//*handleLogin()*//* },
-
-            modifier = Modifier.padding(top = 5.dp)
-        ) {
-            Text(text = "Login")
-
-
-        }
-        Row {
-            TextButton(onClick = {*//*handleRegisterClick()*//* }
-            )
-            { Text(text = "Register") }
-            TextButton(onClick = {*//*handleForgotPassword()*//* })
-
-            {
-                Spacer(modifier = Modifier.width(60.dp))
-                Text(text = "Forget password?")
-            }
-        }
-    }
-
-}*/
