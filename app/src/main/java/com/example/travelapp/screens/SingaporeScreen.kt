@@ -1,21 +1,15 @@
-package com.example.travelapp
+package com.example.travelapp.screens
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.travelapp.R
 import com.example.travelapp.components.PlaceView
 import com.example.travelapp.components.PlanItem
 
-class SingaporeActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            PlaceView(placeName = R.string.place_3, placeImage = R.drawable.singapore_cover) {
-                SingaporePlans()
-            }
-        }
+@Composable
+fun SingaporeScreen() {
+    PlaceView(placeName = R.string.place_3, placeImage = R.drawable.singapore_cover) {
+        SingaporePlans()
     }
 }
 
