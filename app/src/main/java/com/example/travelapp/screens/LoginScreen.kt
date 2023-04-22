@@ -1,10 +1,5 @@
-package com.example.travelapp
+package com.example.travelapp.screens
 
-import android.content.Context
-import android.content.Intent
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -21,6 +16,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
@@ -29,29 +25,12 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.travelapp.ui.theme.TravelAppTheme
+import com.example.travelapp.R
+import com.example.travelapp.UserDatabaseHelper
 
-class LoginActivity : ComponentActivity() {
-    private lateinit var databaseHelper: UserDatabaseHelper
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        databaseHelper = UserDatabaseHelper(this)
-        setContent {
-            TravelAppTheme {
-                Surface(
-                    color = MaterialTheme.colors.surface,
-                    contentColor = MaterialTheme.colors.onSurface,
-                ) {
-                    LoginScreen(this, databaseHelper)
-                }
-            }
-        }
-    }
-}
 
 @Composable
-fun LoginScreen(context: Context, databaseHelper: UserDatabaseHelper) {
-
+fun LoginScreen(goToHome: () -> Unit, goToRegister: () -> Unit) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var isPasswordVisible by remember { mutableStateOf(false) }
@@ -59,17 +38,15 @@ fun LoginScreen(context: Context, databaseHelper: UserDatabaseHelper) {
 
     val fm = LocalFocusManager.current
 
+    val databaseHelper = UserDatabaseHelper(LocalContext.current)
+
     val handleLogin = {
         if (username.isNotEmpty() && password.isNotEmpty()) {
             val user = databaseHelper.getUserByUsername(username)
 
             if (user != null && user.password == password) {
                 error = "Successfully log in"
-                context.startActivity(
-                    Intent(
-                        context, MainActivity::class.java
-                    )
-                )
+                goToHome()
                 //onLoginSuccess()
             } else {
                 error = "Invalid username or password"
@@ -81,11 +58,7 @@ fun LoginScreen(context: Context, databaseHelper: UserDatabaseHelper) {
     }
 
     val handleRegisterClick = {
-        context.startActivity(
-            Intent(
-                context, RegisterActivity::class.java
-            )
-        )
+        goToRegister()
     }
 
     Column(
@@ -183,11 +156,5 @@ fun LoginScreen(context: Context, databaseHelper: UserDatabaseHelper) {
             TextButton(onClick = { handleRegisterClick() }) { Text(text = "Register Now") }
         }
     }
-}
 
-/*
-private fun startMainPage(context: Context) {
-    val intent = Intent(context, MainActivity::class.java)
-    ContextCompat.startActivity(context, intent, null)
 }
-*/

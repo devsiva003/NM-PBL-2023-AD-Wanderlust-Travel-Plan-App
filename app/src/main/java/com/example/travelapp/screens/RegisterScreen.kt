@@ -1,10 +1,5 @@
-package com.example.travelapp
+package com.example.travelapp.screens
 
-import android.content.Context
-import android.content.Intent
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -18,6 +13,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
@@ -26,28 +22,12 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat
-import com.example.travelapp.ui.theme.TravelAppTheme
-
-class RegisterActivity : ComponentActivity() {
-    private lateinit var databaseHelper: UserDatabaseHelper
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        databaseHelper = UserDatabaseHelper(this)
-        setContent {
-            TravelAppTheme {
-                Surface(
-                    color = MaterialTheme.colors.surface,
-                    contentColor = MaterialTheme.colors.onSurface
-                ) { RegistrationScreen(this, databaseHelper) }
-            }
-        }
-    }
-}
+import com.example.travelapp.R
+import com.example.travelapp.User
+import com.example.travelapp.UserDatabaseHelper
 
 @Composable
-fun RegistrationScreen(context: Context, databaseHelper: UserDatabaseHelper) {
-
+fun RegisterScreen(goToLogin: () -> Unit) {
     var firstName by remember { mutableStateOf("") }
     var lastName by remember { mutableStateOf("") }
     var username by remember { mutableStateOf("") }
@@ -58,6 +38,7 @@ fun RegistrationScreen(context: Context, databaseHelper: UserDatabaseHelper) {
     var isConfirmPasswordVisible by remember { mutableStateOf(false) }
     var errMsg by remember { mutableStateOf("") }
 
+    val databaseHelper = UserDatabaseHelper(LocalContext.current)
     val fm = LocalFocusManager.current
 
     fun handleRegister() {
@@ -87,12 +68,7 @@ fun RegistrationScreen(context: Context, databaseHelper: UserDatabaseHelper) {
         )
         databaseHelper.insertUser(user)
         errMsg = "User registered successfully"
-        // Start LoginActivity using the current context
-        context.startActivity(
-            Intent(
-                context, LoginActivity::class.java
-            )
-        )
+        goToLogin()
 
     }
 
@@ -260,11 +236,15 @@ fun RegistrationScreen(context: Context, databaseHelper: UserDatabaseHelper) {
                 modifier = Modifier.padding(top = 14.dp), text = "Have an account?"
             )
             TextButton(onClick = {
+<<<<<<< HEAD:app/src/main/java/com/example/travelapp/RegisterActivity.kt
                 context.startActivity(
                     Intent(
                         context, LoginActivity::class.java
                     )
                 )
+=======
+                goToLogin()
+>>>>>>> ui/RegisterActivity:app/src/main/java/com/example/travelapp/screens/RegisterScreen.kt
             })
 
             {
@@ -273,9 +253,14 @@ fun RegistrationScreen(context: Context, databaseHelper: UserDatabaseHelper) {
             }
         }
     }
+<<<<<<< HEAD:app/src/main/java/com/example/travelapp/RegisterActivity.kt
 }
 
 private fun startLoginActivity(context: Context) {
     val intent = Intent(context, LoginActivity::class.java)
     ContextCompat.startActivity(context, intent, null)
 }
+=======
+
+}
+>>>>>>> ui/RegisterActivity:app/src/main/java/com/example/travelapp/screens/RegisterScreen.kt

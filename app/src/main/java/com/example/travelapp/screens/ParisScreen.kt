@@ -1,22 +1,17 @@
-package com.example.travelapp
+package com.example.travelapp.screens
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.travelapp.R
 import com.example.travelapp.components.PlaceView
 import com.example.travelapp.components.PlanItem
 
-class ParisActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            PlaceView(placeName = R.string.place_2, placeImage = R.drawable.paris_cover) {
-                ParisPlans()
-            }
-        }
+@Composable
+fun ParisScreen() {
+    PlaceView(placeName = R.string.place_2, placeImage = R.drawable.paris_cover) {
+        ParisPlans()
     }
+
 }
 
 private val PLANS_DATA = listOf(
@@ -88,6 +83,7 @@ private val PLANS_DATA = listOf(
 @Composable
 private fun ParisPlans() {
     PLANS_DATA.forEach { plan ->
+        @Suppress("UNCHECKED_CAST")
         PlanItem(
             caption = plan["caption"] as String,
             activities = plan["activities"] as List<String>
