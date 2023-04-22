@@ -236,15 +236,7 @@ fun RegisterScreen(goToLogin: () -> Unit) {
                 modifier = Modifier.padding(top = 14.dp), text = "Have an account?"
             )
             TextButton(onClick = {
-<<<<<<< HEAD:app/src/main/java/com/example/travelapp/RegisterActivity.kt
-                context.startActivity(
-                    Intent(
-                        context, LoginActivity::class.java
-                    )
-                )
-=======
                 goToLogin()
->>>>>>> ui/RegisterActivity:app/src/main/java/com/example/travelapp/screens/RegisterScreen.kt
             })
 
             {
@@ -253,14 +245,5 @@ fun RegisterScreen(goToLogin: () -> Unit) {
             }
         }
     }
-<<<<<<< HEAD:app/src/main/java/com/example/travelapp/RegisterActivity.kt
-}
-
-private fun startLoginActivity(context: Context) {
-    val intent = Intent(context, LoginActivity::class.java)
-    ContextCompat.startActivity(context, intent, null)
-}
-=======
 
 }
->>>>>>> ui/RegisterActivity:app/src/main/java/com/example/travelapp/screens/RegisterScreen.kt
